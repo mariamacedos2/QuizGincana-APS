@@ -58,9 +58,7 @@ function Inicio() {
     setTimeout(() => setMostrarModal(false), 1200);
   }
 
-  // ------------------------------
-  // ▶️ Entrar no quiz
-  // ------------------------------
+  // Entrar no quiz
   const entrarNoQuiz = async () => {
     if (!codigoDigitado.trim()) {
       alert("Digite um código!");

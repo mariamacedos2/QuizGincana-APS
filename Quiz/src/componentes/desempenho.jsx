@@ -50,12 +50,22 @@ export default function Desempenho() {
           categorias[p.categoria].total++;
         });
 
+        const respostasUnicas = {};
+
         respostas?.forEach((r) => {
+          // guarda apenas uma resposta por pergunta
+          if (!respostasUnicas[r.pergunta_id]) {
+            respostasUnicas[r.pergunta_id] = r;
+          }
+        });
+
+        Object.values(respostasUnicas).forEach((r) => {
           const pergunta = perguntas.find((p) => p.id === r.pergunta_id);
           if (pergunta && r.acertou) {
             categorias[pergunta.categoria].acertos++;
           }
         });
+
 
         const resultado = Object.entries(categorias).map(([nome, info]) => ({
           nome,

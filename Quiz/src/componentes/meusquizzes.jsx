@@ -16,7 +16,7 @@ function MeusQuizzes() {
       // Quizzes criados pelo usuário
       const { data: quizzesCriados } = await supabase
         .from("quizzes")
-        .select("id, nome_sala")
+        .select("id, nome_sala, codigo_acesso")
         .eq("user_id", userId);
 
       setMeusQuizzes(quizzesCriados || []);
@@ -24,10 +24,26 @@ function MeusQuizzes() {
       // Histórico de quizzes jogados
       const { data: historicoData } = await supabase
         .from("pontuacoes")
-        .select("quiz_id, quizzes ( nome_sala )")
+        .select("quiz_id")
         .eq("user_id", userId);
 
-      setHistorico(historicoData || []);
+      if (historicoData?.length) {
+        const quizIds = historicoData.map((item) => item.quiz_id);
+
+        const { data: quizzesHistorico } = await supabase
+          .from("quizzes")
+          .select("id, nome_sala, codigo_acesso")
+          .in("id", quizIds);
+
+        const historicoFinal = historicoData.map((item) => ({
+          quiz_id: item.quiz_id,
+          quiz: quizzesHistorico.find((q) => q.id === item.quiz_id),
+        }));
+
+        setHistorico(historicoFinal);
+      } else {
+        setHistorico([]);
+      }
     }
 
     carregarDados();
@@ -47,6 +63,7 @@ function MeusQuizzes() {
           </button>
         </Link>
 
+        {/* MEUS QUIZZES */}
         <h2 className={styles.titulo}>Meus Quizzes</h2>
 
         <div className={styles.cardsRow}>
@@ -56,18 +73,26 @@ function MeusQuizzes() {
               className={styles.quizcaixa}
               onClick={() => abrirRanking(quiz.id)}
             >
-              <h3>{quiz.nome_sala}</h3>
+              <div className={styles.quizContent}>
+                <h3 className={styles.quizTitulo}>{quiz.nome_sala}</h3>
+                <span className={styles.quizCodigo}>
+                  Código: {quiz.codigo_acesso}
+                </span>
+              </div>
             </div>
           ))}
 
-          {/* Botão de criar novo quiz */}
+          {/* Criar novo quiz */}
           <Link to="/criarquiz" className={styles.quizLink}>
             <div className={styles.quizcaixa}>
-              <h3 className={styles.plus}>+</h3>
+              <div className={styles.quizContent}>
+                <h3 className={styles.plus}>+</h3>
+              </div>
             </div>
           </Link>
         </div>
 
+        {/* HISTÓRICO */}
         <h2 className={styles.titulo}>Meu Histórico</h2>
 
         <div className={styles.cardsRow}>
@@ -77,7 +102,14 @@ function MeusQuizzes() {
               className={styles.quizcaixa}
               onClick={() => abrirRanking(item.quiz_id)}
             >
-              <h3>{item.quizzes?.nome_sala}</h3>
+              <div className={styles.quizContent}>
+                <h3 className={styles.quizTitulo}>
+                  {item.quiz?.nome_sala}
+                </h3>
+                <span className={styles.quizCodigo}>
+                  Código: {item.quiz?.codigo_acesso}
+                </span>
+              </div>
             </div>
           ))}
 

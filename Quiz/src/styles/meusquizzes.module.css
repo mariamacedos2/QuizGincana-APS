@@ -66,18 +66,21 @@
 
 /* ----------------------------- TÍTULOS ----------------------------- */
 .titulo {
-  -webkit-text-stroke: 1.5px rgb(0, 0, 0);
-  font-size: 35px;
+    -webkit-text-stroke: 1.5px #fff;
+  font-size: clamp(28px, 6vw, 60px);
   color: #e4459b;
   text-shadow: 5px 8px 5px rgba(0, 0, 0, 0.5);
-  font-family: "Ribeye", serif;
-  margin-top: 20px;
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  text-align: center;
+  word-wrap: break-word;
+  margin-top: 0;
 }
 
 /* ----------------------------- CARDS ----------------------------- */
 .cardsRow {
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
   gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -105,8 +108,8 @@
 
 .quizcaixa {
   flex: 0 0 auto;
-  width: 170px;
-  height: 120px;
+  width: 180px;
+  height: 130px;
   background: #fff;
   border: 3px solid #ff6ec7;
   border-radius: 20px;
@@ -116,6 +119,7 @@
   justify-content: center;
   cursor: pointer;
   transition: transform 0.2s;
+  padding: 10px;
 }
 
 .quizcaixa:hover {
@@ -130,6 +134,29 @@
 .quizLink {
   text-decoration: none;
 }
+.quizContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  gap: 6px;
+}
+
+.quizTitulo {
+  font-size: 1.15rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.quizCodigo {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
 
 /* ----------------------------- RESPONSIVIDADE ----------------------------- */
 @media (max-width: 900px) {
@@ -157,12 +184,6 @@
 
   .titulo {
     font-size: 26px;
-  }
-
-  .cardsRow {
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
   }
 
   .quizcaixa {

@@ -71,7 +71,7 @@ function SalaQuiz() {
 }
 
 
-  // 🔥 CARREGA O QUIZ SALVO NO LOCAL STORAGE
+  // CARREGA O QUIZ SALVO NO LOCAL STORAGE
   useEffect(() => {
     const quizSalvo = localStorage.getItem("quizAtual");
 
@@ -230,7 +230,6 @@ function SalaQuiz() {
     </div>
   </div>
 )}
-
 
     </div>
   );

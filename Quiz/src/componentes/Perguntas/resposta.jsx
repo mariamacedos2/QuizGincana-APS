@@ -55,9 +55,7 @@ export default function Resposta() {
 
   const acertou = indiceEscolhido === Number(question.resposta_correta);
 
-  // ---------------------------------------------------------
   // SALVAR RESPOSTA NO BANCO
-  // ---------------------------------------------------------
   async function salvarResposta() {
     const { data: userData } = await supabase.auth.getUser();
     const userId = userData?.user?.id;
@@ -74,9 +72,7 @@ export default function Resposta() {
     });
   }
 
-  // ---------------------------------------------------------
-  // SALVAR PONTUAÇÃO (VERSÃO FINAL 100% FUNCIONAL)
-  // ---------------------------------------------------------
+  //  SALVAR PONTUAÇÃO
   async function salvarPontuacao() {
     const { data: userData } = await supabase.auth.getUser();
     const userId = userData?.user?.id;

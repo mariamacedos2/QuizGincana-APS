@@ -21,9 +21,7 @@ export default function SalaJogando() {
 
   const [userId, setUserId] = useState(null);
 
-  // -----------------------------------------
   // Carregar perguntas e usuário
-  // -----------------------------------------
   useEffect(() => {
     async function carregarDados() {
       const { data: userData } = await supabase.auth.getUser();
@@ -86,9 +84,7 @@ export default function SalaJogando() {
     question.alternativa_d
   ];
 
-  // -----------------------------------------
   // Função 50/50 — global por quiz
-  // -----------------------------------------
   async function ativar5050() {
     if (usos5050 >= limite5050) {
       alert("Você atingiu o limite de usos do 50/50 neste quiz!");
@@ -117,9 +113,7 @@ export default function SalaJogando() {
     if (error) console.error("Erro ao atualizar uso 50/50:", error);
   }
 
-  // -----------------------------------------
   // Selecionar resposta
-  // -----------------------------------------
   function selecionarResposta(indiceEscolhido) {
     navigate("/resposta", {
       state: {
